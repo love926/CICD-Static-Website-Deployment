@@ -1,0 +1,28 @@
+pipeline{
+    agent any
+    stages{
+        stage('Code'){
+            steps{
+                echo 'Code Upload Successfully'
+                git url:"https://github.com/love926/CICD-Static-Website-Deployment.git",branch:"master"
+            }
+        }
+        stage('Build'){
+            steps{
+                echo 'Code Build Successfully'
+                sh 'docker build -t portfolio .'
+            }
+        }
+        stage('Test'){
+            steps{
+                echo 'Code Test Successfully'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo 'Code Deploy Successfully'
+                sh 'docker run -d -p 81:80 portfolio'
+            }
+        }
+    }
+}
